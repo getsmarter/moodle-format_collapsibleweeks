@@ -27,7 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/course/format/lib.php');
 
-
+/**
+ * Events observed by collapsibletopics format.
+ */
 class format_collapsibleweeks_observer {
     /**
      * Observe user_loggedout event in order to delete weeks collapse state for logging out user if necessary.

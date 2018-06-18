@@ -472,6 +472,19 @@ class format_collapsibleweeks extends format_base {
         return !$section->section || $section->visible;
     }
 
+    /**
+     * Callback used in WS core_course_edit_section when teacher performs an AJAX action on a section (show/hide)
+     *
+     * Access to the course is already validated in the WS but the callback has to make sure
+     * that particular action is allowed by checking capabilities
+     *
+     * Course formats should register
+     *
+     * @param stdClass|section_info $section
+     * @param string $action
+     * @param int $sr
+     * @return null|array|stdClass any data for the Javascript post-processor (must be json-encodeable)
+     */
     public function section_action($section, $action, $sr) {
         global $PAGE;
 

@@ -39,7 +39,7 @@ $observers = array(
         'callback'    => 'format_collapsibleweeks_observer::course_section_deleted',
     ),
     array(
-        'eventname' => 'core\event\user_loggedout',
-        'callback' =>  'format_collapsibleweeks_observer::user_loggedout',
+        'eventname'   => 'core\event\user_loggedout',
+        'callback'    => 'format_collapsibleweeks_observer::user_loggedout',
     ),
 );
