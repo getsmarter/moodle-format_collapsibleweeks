@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Definition of event handler for format_collapsibleweeks plugin.
  * Cloned from core weeks format + another event handler definition.
  *
  * @package    format_collapsibleweeks

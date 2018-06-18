@@ -96,7 +96,7 @@ body.editing .course-content ul.collapsibleweeks .sectiontoggle.legacy {
 body.editing .course-content ul.collapsibleweeks a.sectiontoggle[aria-expanded="true"] {
     background-position: left 30%;
     padding-right: 1rem;
-    padding-left:0;
+    padding-left: 0;
 }
 
 body.editing .course-content ul.collapsibleweeks a.sectiontoggle[aria-expanded="false"] {
@@ -133,7 +133,7 @@ body.editing ul.collapsibleweeks .content .summarytext {
 }
 
 .course-content ul.collapsibleweeks #section-0 .section-summary-activities {
-    display:none;
+    display: none;
 }
 
 .course-content ul.collapsibleweeks .sectiontoggle ~ .section-summary-activities {

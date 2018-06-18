@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * format_collapsibleweeks related unit tests
  * Cloned from format_weeks, only class name and reference to weeks format changed.
  *
  * @package    format_collapsibleweeks
@@ -30,7 +29,6 @@ global $CFG;
 require_once($CFG->dirroot . '/course/lib.php');
 
 /**
- * format_collapsibleweeks related unit tests
  * Cloned from format_weeks, only class name and reference to weeks format changed.
  *
  * @package    format_collapsibleweeks

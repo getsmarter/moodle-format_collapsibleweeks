@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Observer class for format_collapsibleweeks plugin.
  * Cloned form core weeks format + a new function handling user_loggedout event.
  *
  * @package    format_collapsibleweeks

@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Settings file for collapsibleweeks course format.
+ *
  * @package    format_collapsibleweeks
  * @author     Jean-Roch Meurisse
  * @copyright  2018 - Cellule TICE - Unversite de Namur
@@ -26,7 +28,7 @@ require_once($CFG->dirroot. '/course/format/singleactivity/settingslib.php');
 
 if ($ADMIN->fulltree) {
     $name = 'format_collapsibleweeks/keepstateoversession';
-    $title = get_string('keepstateoversession', 'format_collapsibleweeks');'Garder l\'état des sections après déconnexion';
+    $title = get_string('keepstateoversession', 'format_collapsibleweeks');
     $description = get_string('keepstateoversession_desc', 'format_collapsibleweeks');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);

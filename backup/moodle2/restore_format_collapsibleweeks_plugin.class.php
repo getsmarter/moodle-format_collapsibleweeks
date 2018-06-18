@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Specialised restore for format_collapsibleweeks
  * Cloned from format_weeks, only class name and reference to weeks format changed.
  *
  * @package   format_collapsibleweeks

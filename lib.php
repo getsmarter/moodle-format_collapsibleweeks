@@ -15,8 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file contains main class for the course format collapsibleweeks
- * Keep methods from core weeks format and override parent some methods to add collapsing behaviour to weeks.
+ * Adaptation of core weeks format to add collapsing behaviour to weeks (sections).
  *
  * @package   format_collapsibleweeks
  * @copyright 2018 - Cellule TICE - Unversite de Namur
