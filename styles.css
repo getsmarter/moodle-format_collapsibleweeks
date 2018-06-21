@@ -144,10 +144,10 @@ body.editing ul.collapsibleweeks .content .summarytext {
     display: block;
 }
 
-/*.course-content ul.collapsibleweeks .collapsing {
+.course-content ul.collapsibleweeks .collapsing {
     -webkit-transition: none;
     transition: none;
-}*/
+}
 
 .course-content ul.collapsibleweeks div.section_availability {
     margin-left: 1.5rem;
