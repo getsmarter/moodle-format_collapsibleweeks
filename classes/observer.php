@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/course/format/lib.php');
 
 /**
- * Events observed by collapsibletopics format.
+ * Events observed by collapsibleweeks format.
  */
 class format_collapsibleweeks_observer {
     /**

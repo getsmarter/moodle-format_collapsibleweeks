@@ -20,7 +20,7 @@
  * @copyright 2018 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace format_collapsibletopics\privacy;
+namespace format_collapsibleweeks\privacy;
 
 use \core_privacy\local\request\writer;
 use \core_privacy\local\metadata\collection;

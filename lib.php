@@ -49,7 +49,7 @@ class format_collapsibleweeks extends format_base {
      * Returns the display name of the given section that the course prefers.
      *
      * @param int|stdClass $section Section object from database or just field section.section
-     * @return string Display name that the course format prefers, e.g. "Topic 2"
+     * @return string Display name that the course format prefers, e.g. "Week 2"
      */
     public function get_section_name($section) {
         $section = $this->get_section($section);

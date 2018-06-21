@@ -30,7 +30,7 @@ require_once($CFG->dirroot.'/course/format/collapsibleweeks/lib.php');
 
 
 /**
- * Basic renderer for collapsibletopics format.
+ * Basic renderer for collapsibleweeks format.
  *
  * @package    format_collapsibleweeks
  * @copyright  2018 - Cellule TICE - Unversite de Namur
