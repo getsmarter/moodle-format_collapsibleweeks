@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018061500;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->maturity = MATURITY_BETA;      // Will be changed to STABLE on acceptance.
+$plugin->version   = 2018061900;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->maturity = MATURITY_STABLE;
 $plugin->requires  = 2017110800;        // Requires this Moodle version.
 $plugin->component = 'format_collapsibleweeks';    // Full name of the plugin (used for diagnostics).
 $plugin->release = '1.0';
