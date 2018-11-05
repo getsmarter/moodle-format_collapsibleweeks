@@ -185,7 +185,7 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
 
         // Try updating using callback from mismatching course format.
         try {
-            $tmpl = component_callback('format_weeks', 'inplace_editable',
+            $tmpl = component_callback('format_collapsibleweeks', 'inplace_editable',
                     array('sectionname', $section->id, 'New name'));
             $this->fail('Exception expected');
         } catch (moodle_exception $e) {

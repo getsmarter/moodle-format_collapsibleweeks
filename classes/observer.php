@@ -57,10 +57,10 @@ class format_collapsibleweeks_observer {
      * @param \core\event\course_updated $event
      */
     public static function course_updated(\core\event\course_updated $event) {
-        if (class_exists('format_weeks', false)) {
-            // If class format_weeks was never loaded, this is definitely not a course in 'weeks' format.
-            // Course may still be in another format but format_weeks::update_end_date() will check it.
-            format_weeks::update_end_date($event->courseid);
+        if (class_exists('format_collapsibleweeks', false)) {
+            // If class format_collapsibleweeks was never loaded, this is definitely not a course in 'collapsibleweeks' format.
+            // Course may still be in another format but format_collapsibleweeks::update_end_date() will check it.
+            format_collapsibleweeks::update_end_date($event->courseid);
         }
     }
 
@@ -70,10 +70,10 @@ class format_collapsibleweeks_observer {
      * @param \core\event\course_section_created $event
      */
     public static function course_section_created(\core\event\course_section_created $event) {
-        if (class_exists('format_weeks', false)) {
-            // If class format_weeks was never loaded, this is definitely not a course in 'weeks' format.
-            // Course may still be in another format but format_weeks::update_end_date() will check it.
-            format_weeks::update_end_date($event->courseid);
+        if (class_exists('format_collapsibleweeks', false)) {
+            // If class format_collapsibleweeks was never loaded, this is definitely not a course in 'collapsibleweeks' format.
+            // Course may still be in another format but format_collapsibleweeks::update_end_date() will check it.
+            format_collapsibleweeks::update_end_date($event->courseid);
         }
     }
 
@@ -83,10 +83,10 @@ class format_collapsibleweeks_observer {
      * @param \core\event\course_section_deleted $event
      */
     public static function course_section_deleted(\core\event\course_section_deleted $event) {
-        if (class_exists('format_weeks', false)) {
-            // If class format_weeks was never loaded, this is definitely not a course in 'weeks' format.
-            // Course may still be in another format but format_weeks::update_end_date() will check it.
-            format_weeks::update_end_date($event->courseid);
+        if (class_exists('format_collapsibleweeks', false)) {
+            // If class format_collapsibleweeks was never loaded, this is definitely not a course in 'collapsibleweeks' format.
+            // Course may still be in another format but format_collapsibleweeks::update_end_date() will check it.
+            format_collapsibleweeks::update_end_date($event->courseid);
         }
     }
 }

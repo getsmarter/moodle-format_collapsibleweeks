@@ -74,7 +74,7 @@ class format_collapsibleweeks extends format_base {
     public function get_default_section_name($section) {
         if ($section->section == 0) {
             // Return the general section.
-            return get_string('section0name', 'format_weeks');
+            return get_string('section0name', 'format_collapsibleweeks');
         } else {
             $dates = $this->get_section_dates($section);
 
@@ -250,9 +250,9 @@ class format_collapsibleweeks extends format_base {
                     ),
                 ),
                 'automaticenddate' => array(
-                    'label' => new lang_string('automaticenddate', 'format_weeks'),
+                    'label' => new lang_string('automaticenddate', 'format_collapsibleweeks'),
                     'help' => 'automaticenddate',
-                    'help_component' => 'format_weeks',
+                    'help_component' => 'format_collapsibleweeks',
                     'element_type' => 'advcheckbox',
                 )
             );
@@ -304,7 +304,7 @@ class format_collapsibleweeks extends format_base {
     /**
      * Updates format options for a course
      *
-     * In case if course format was changed to 'weeks', we try to copy options
+     * In case if course format was changed to 'collapsibleweeks', we try to copy options
      * 'coursedisplay', 'numsections' and 'hiddensections' from the previous format.
      * If previous course format did not have 'numsections' option, we populate it with the
      * current number of sections
@@ -507,7 +507,7 @@ class format_collapsibleweeks extends format_base {
         global $DB, $COURSE;
 
         // Use one DB query to retrieve necessary fields in course, value for automaticenddate and number of the last
-        // section. This query will also validate that the course is indeed in 'weeks' format.
+        // section. This query will also validate that the course is indeed in 'collapsibleweeks' format.
         $insql = "SELECT c.id, c.format, c.startdate, c.enddate, MAX(s.section) AS lastsection
                     FROM {course} c
                     JOIN {course_sections} s
@@ -523,7 +523,7 @@ class format_collapsibleweeks extends format_base {
                    AND fo.name = :optionname
                    AND fo.sectionid = 0";
         $course = $DB->get_record_sql($sql,
-            ['optionname' => 'automaticenddate', 'format' => 'weeks', 'courseid' => $courseid]);
+            ['optionname' => 'automaticenddate', 'format' => 'collapsibleweeks', 'courseid' => $courseid]);
 
         if (!$course) {
             // Looks like it is a course in a different format, nothing to do here.
@@ -531,7 +531,7 @@ class format_collapsibleweeks extends format_base {
         }
 
         // Create an instance of this class and mock the course object.
-        $format = new format_weeks('weeks', $courseid);
+        $format = new format_collapsibleweeks('collapsibleweeks', $courseid);
         $format->course = $course;
 
         // If automaticenddate is not specified take the default value.
