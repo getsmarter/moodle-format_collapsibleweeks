@@ -217,7 +217,6 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
         global $PAGE;
 
         $o = '';
-        $currenttext = '';
         $sectionstyle = '';
 
         if ($section->section != 0) {

@@ -58,7 +58,7 @@ class provider implements
      */
     public static function export_user_preferences(int $userid) {
 
-        $preferences = get_user_preferences();
+        $preferences = get_user_preferences(null, null, $userid);
         foreach ($preferences as $prefname => $prefvalue) {
             $courseid = null;
             if (strpos($prefname, 'sections-toggle-') === 0) {

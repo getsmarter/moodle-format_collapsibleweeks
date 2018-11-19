@@ -117,8 +117,7 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
                 $sectionname = get_string('section0name', 'format_collapsibleweeks');
                 $this->assertEquals($sectionname, $courseformat->get_default_section_name($section));
             } else {
-                $sectionname = get_string('sectionname', 'format_collapsibleweeks') . ' ' . $section->section;
-                $this->assertEquals($sectionname, $courseformat->get_default_section_name($section));
+                $this->assertEquals($courseformat->get_section_name($section), $courseformat->get_default_section_name($section));
             }
         }
     }
@@ -127,7 +126,7 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
      * Test web service updating section name
      */
     public function test_update_inplace_editable() {
-        global $CFG, $DB, $PAGE;
+        global $CFG, $DB;
         require_once($CFG->dirroot . '/lib/external/externallib.php');
 
         $this->resetAfterTest();
@@ -185,7 +184,7 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
 
         // Try updating using callback from mismatching course format.
         try {
-            $tmpl = component_callback('format_collapsibleweeks', 'inplace_editable',
+            $tmpl = component_callback('format_weeks', 'inplace_editable',
                     array('sectionname', $section->id, 'New name'));
             $this->fail('Exception expected');
         } catch (moodle_exception $e) {
@@ -199,7 +198,7 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
      * @return void
      */
     public function test_default_course_enddate() {
-        global $CFG, $DB;
+        global $CFG, $DB, $PAGE;
 
         $this->resetAfterTest(true);
 
@@ -222,13 +221,14 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
             'returnurl' => new moodle_url('/'),
         ];
 
+        $PAGE->set_course($course);
         $courseform = new testable_course_edit_form(null, $args);
         $courseform->definition_after_data();
 
-        $enddate = $params['startdate'] + get_config('moodlecourse', 'courseduration');
+        $enddate = $params['startdate'] + (WEEKSECS * $params['numsections']) + 7200;
 
-        $weeksformat = course_get_format($course->id);
-        $this->assertEquals($enddate, $weeksformat->get_default_course_enddate($courseform->get_quick_form()));
+        $format = course_get_format($course->id);
+        $this->assertEquals($enddate, $format->get_default_course_enddate($courseform->get_quick_form()));
 
     }
 
@@ -238,8 +238,6 @@ class format_collapsibleweeks_testcase extends advanced_testcase {
     public function test_get_view_url() {
         global $CFG;
         $this->resetAfterTest();
-
-        $linkcoursesections = $CFG->linkcoursesections;
 
         // Generate a course with two sections (0 and 1) and two modules.
         $generator = $this->getDataGenerator();
