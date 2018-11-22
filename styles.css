@@ -116,7 +116,7 @@ body.editing .course-content ul.collapsibleweeks a.sectiontoggle[aria-expanded="
 
 /* Section content */
 .course-content ul.collapsibleweeks .content .summarytext {
-    margin: .125rem 1.625rem 0 .125rem;
+    margin: 0 1.625rem 0 .125rem;
 }
 
 body.editing ul.collapsibleweeks .content .summarytext {
