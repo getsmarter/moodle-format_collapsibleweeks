@@ -29,6 +29,11 @@ require_once($CFG->dirroot.'/course/format/lib.php');
 
 /**
  * Events observed by collapsibleweeks format.
+ *
+ * @package    format_collapsibleweeks
+ * @author     Jean-Roch Meurisse
+ * @copyright  2018 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class format_collapsibleweeks_observer {
     /**

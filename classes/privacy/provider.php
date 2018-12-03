@@ -30,6 +30,11 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Implementation of the privacy subsystem plugin provider for the collapsible weeks course format.
+ *
+ * @package    format_collapsibleweeks
+ * @author     Jean-Roch Meurisse
+ * @copyright  2018 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
     // This plugin has data.
