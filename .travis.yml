@@ -5,10 +5,6 @@ sudo: true
 addons:
   firefox: "47.0.1"
   postgresql: "9.4"
-  apt:
-    packages:
-      - oracle-java8-installer
-      - oracle-java8-set-default
 
 cache:
   directories:
@@ -22,7 +18,7 @@ php:
 env:
  global:
   - MOODLE_BRANCH=MOODLE_35_STABLE
-  - MOODLE_BRANCH=master
+  - MOODLE_BRANCH=MOODLE_36_STABLE
  matrix:
   - DB=pgsql
   - DB=mysqli
