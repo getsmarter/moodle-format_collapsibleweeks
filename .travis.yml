@@ -5,12 +5,13 @@ sudo: true
 addons:
   firefox: "47.0.1"
   postgresql: "9.4"
-  apt:
-      packages:
-        - openjdk-8-jre-headless
+  packages:
         - mysql-server-5.6
         - mysql-client-core-5.6
         - mysql-client-5.6
+  apt:
+      packages:
+        - openjdk-8-jre-headless
 
 cache:
   directories:
