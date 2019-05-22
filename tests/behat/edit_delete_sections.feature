@@ -58,7 +58,7 @@ Feature: Sections can be edited and deleted in collapsibleweeks format
     Then I should see "Welcome to section 2" in the "li#section-2" "css_element"
 
   @javascript
-  Scenario: Inline edit section name in collapsibleweeks format
+  Scenario: Inline edit week name in collapsibleweeks format
     When I click on "Edit week name" "link" in the "li#section-1" "css_element"
     And I set the field "New name for week 1 May - 7 May" to "Midterm evaluation"
     And I press key "13" in the field "New name for week 1 May - 7 May"
@@ -87,7 +87,7 @@ Feature: Sections can be edited and deleted in collapsibleweeks format
     And I should see "22 May - 28 May"
 
   @javascript
-  Scenario: Adding sections in collapsibletopics format
+  Scenario: Adding weeks in collapsibleweeks format
     When I follow "Add weeks"
     Then the field "Number of sections" matches value "1"
     And I press "Add weeks"

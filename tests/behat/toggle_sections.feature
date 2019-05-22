@@ -51,7 +51,7 @@ Feature: Sections can be expanded in collapsibleweeks format
     And I should not see "Test chat name" in the "div#collapse-4" "css_element"
 
   @javascript
-  Scenario: Expand/collapse all sections when editing mode is off
+  Scenario: Expand/collapse all weeks when editing mode is off
     When I click on "Expand all" "link" in the "div#collapse-0" "css_element"
     Then I should see "Test book name" in the "div#collapse-1" "css_element"
     And I should not see "Book: 1" in the "li#section-1 .content" "css_element"
