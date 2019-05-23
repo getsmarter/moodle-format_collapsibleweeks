@@ -38,7 +38,6 @@ require_once($CFG->dirroot.'/course/format/collapsibleweeks/lib.php');
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class format_collapsibleweeks_renderer extends format_section_renderer_base {
-    
     /**
      * Overrides format_section_renderer_base implementation.
      *
@@ -214,7 +213,7 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
         $o .= html_writer::tag('span', get_section_name($course, $section), array('class' => 'hidden sectionname'));
 
         $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-        $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side' . $extraclass));
+        $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
         $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
@@ -235,14 +234,14 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
                 array('class' => 'sectionname'));
             // Add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {
-                $o .= '<a class="sectiontoggle' . $extraclass .
+                $o .= '<a class="sectiontoggle' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
                     '" aria-expanded="true" aria-controls="collapse-' .
                     $section->section .
                     '">&nbsp;' . $sectionname . '</a> ';
             } else if ($section->section != 0) {
-                $o .= '<a class="sectiontoggle collapsed' . $extraclass .
+                $o .= '<a class="sectiontoggle collapsed' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
                     '" aria-expanded="false" aria-controls="collapse-' .
@@ -266,14 +265,14 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
 
             // Add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {
-                $o .= '<a class="sectiontoggle' . $extraclass .
+                $o .= '<a class="sectiontoggle' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
                     '" aria-expanded="true" aria-controls="collapse-' .
                     $section->section .
                     '">&nbsp;</a> ';
             } else if ($section->section != 0) {
-                $o .= '<a class="sectiontoggle collapsed' . $extraclass .
+                $o .= '<a class="sectiontoggle collapsed' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
                     '" aria-expanded="false" aria-controls="collapse-' .
