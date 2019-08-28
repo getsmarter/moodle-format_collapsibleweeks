@@ -214,15 +214,15 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
                         if (isset($sectionmods[$thismod->modname])) {
                             $sectionmods[$thismod->modname]['name'] = $thismod->modplural;
                             $sectionmods[$thismod->modname]['count']++;
-                        }
-                        else {
+                        } else {
                             $sectionmods[$thismod->modname]['name'] = $thismod->modfullname;
                             $sectionmods[$thismod->modname]['count'] = 1;
                         }
                         if ($cancomplete && $completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
                             $total++;
                             $completiondata = $completioninfo->get_data($thismod, true);
-                            if ($completiondata->completionstate == COMPLETION_COMPLETE || $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                            if ($completiondata->completionstate == COMPLETION_COMPLETE ||
+                                    $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
                                 $complete++;
                             }
                         }
