@@ -196,6 +196,41 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
         $o = '';
         $sectionstyle = '';
 
+        if ($course->sectionprogress) {
+            $total = 0;
+            $complete = 0;
+            $cancomplete = isloggedin() && !isguestuser();
+            $modinfo = get_fast_modinfo($course);
+            $sectionmods = array();
+            $completioninfo = new completion_info($course);
+            if (!empty($modinfo->sections[$section->section])) {
+                foreach ($modinfo->sections[$section->section] as $cmid) {
+                    $thismod = $modinfo->cms[$cmid];
+                    if ($thismod->modname == 'label') {
+                        // Labels are special (not interesting for students)!
+                        continue;
+                    }
+                    if ($thismod->uservisible) {
+                        if (isset($sectionmods[$thismod->modname])) {
+                            $sectionmods[$thismod->modname]['name'] = $thismod->modplural;
+                            $sectionmods[$thismod->modname]['count']++;
+                        }
+                        else {
+                            $sectionmods[$thismod->modname]['name'] = $thismod->modfullname;
+                            $sectionmods[$thismod->modname]['count'] = 1;
+                        }
+                        if ($cancomplete && $completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
+                            $total++;
+                            $completiondata = $completioninfo->get_data($thismod, true);
+                            if ($completiondata->completionstate == COMPLETION_COMPLETE || $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                                $complete++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         if ($section->section != 0) {
             // Only in the non-general sections.
             if (!$section->visible) {
@@ -234,6 +269,9 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
                 array('class' => 'sectionname'));
             // Add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {
+                if ($course->sectionprogress && $total > 0) {
+                    $o .= $this->section_progressbar($total, $complete);
+                }
                 $o .= '<a class="sectiontoggle' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
@@ -241,6 +279,9 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
                     $section->section .
                     '">&nbsp;' . $sectionname . '</a> ';
             } else if ($section->section != 0) {
+                if ($course->sectionprogress && $total > 0) {
+                    $o .= $this->section_progressbar($total, $complete);
+                }
                 $o .= '<a class="sectiontoggle collapsed' .
                     '" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                     $section->section .
@@ -248,6 +289,8 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
                     $section->section .
                     '">&nbsp;' . $sectionname .
                     '</a> ';
+            } else if ($section->section == 0 && !is_null($section->name)) {
+                $o .= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
             }
             // End collapse toggle.
 
@@ -303,7 +346,8 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
             $classes .
             '" role="tabpanel" aria-labelledby="heading' .
             $section->section .
-            '">';
+            '">' .
+            '<span class="hidden">' . $sectionname . '</span>';
 
         return $o;
     }
@@ -314,7 +358,7 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
      * @return string HTML to output.
      */
     protected function section_footer() {
-        // Collapsing course formats need an extra div surrounding content to allow section collapsing.
+        // Collapsing format needs has an extra div surrounding content to allow section collapsing.
         $o = html_writer::end_tag('div');
         $o .= parent::section_footer();
 
@@ -357,6 +401,40 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
         $o .= $this->format_summary_text($section);
         $o .= html_writer::end_tag('div');
         $o .= $this->section_activity_summary($section, $course, null);
+
+        return $o;
+    }
+
+    /**
+     * Generate the section progress bar
+     *
+     * @param int $total the number of activities in the section
+     * @param int $complete the number of completed activities in the section
+     * @return string
+     * @throws coding_exception
+     */
+    protected function section_progressbar($total, $complete) {
+        $o = '';
+        $completion = new stdClass;
+        $completion->complete = $complete;
+        $completion->total = $total;
+        $percenttext = get_string('sectionprogresstext', 'format_collapsibleweeks');
+        $percent = 0;
+        $current = 0;
+
+        if ($complete > 0) {
+            $current = (int)$complete;
+            $percent = (int)(($complete / $total) * 100);
+        }
+
+        $o .= '<div class="progress">';
+        $o .= '<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="' . $current .'" ';
+        $o .= ' aria-valuemin="0" aria-valuemax="' . $total .'" style="width: ' . $percent . '%;">';
+        $o .= '<div class="progresstest">';
+        $o .= '<span class="sr-only">' . $percenttext . '</span>';
+        $o .= '</div>';
+        $o .= '</div>';
+        $o .= '</div>';
 
         return $o;
     }
