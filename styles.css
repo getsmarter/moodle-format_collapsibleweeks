@@ -85,6 +85,14 @@ body.editing .course-content ul.collapsibleweeks a.sectiontoggle {
     padding-left: 1rem;
 }
 
+body.dir-rtl .course-content ul.collapsibleweeks a.sectiontoggle {
+    background-position: right 40% !important;
+}
+
+body.dir-rtl .course-content ul.collapsibleweeks a.sectiontoggle[aria-expanded="false"] {
+    background-image: url([[pix:moodle|t/collapsed_rtl]]);
+}
+
 body.editing .course-content ul.collapsibleweeks a.sectiontoggle[aria-expanded="true"] {
     background-position: left 30%;
     padding-right: 1rem;
