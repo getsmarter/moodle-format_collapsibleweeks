@@ -151,3 +151,13 @@ body.editing ul.collapsibleweeks .content .summarytext {
 body.editing .course-content ul.collapsibleweeks li.section ul.section {
     padding-left: .125rem;
 }
+
+.collapsibleweeks .progress {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    float: right;
+    width: 200px;
+    margin-top: 1rem;
+    height: 7px;
+    border: 0;
+}

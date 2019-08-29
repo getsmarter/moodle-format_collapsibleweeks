@@ -229,6 +229,10 @@ class format_collapsibleweeks extends format_base {
                     'default' => $courseconfig->hiddensections,
                     'type' => PARAM_INT,
                 ),
+                'sectionprogress' => array(
+                    'default' => 0,
+                    'type' => PARAM_INT,
+                ),
                 'automaticenddate' => array(
                     'default' => 1,
                     'type' => PARAM_BOOL,
@@ -249,12 +253,24 @@ class format_collapsibleweeks extends format_base {
                         )
                     ),
                 ),
+                'sectionprogress' => array(
+                    'label' => get_string('sectionprogress', 'format_collapsibleweeks'),
+                    'help' => 'sectionprogress',
+                    'help_component' => 'format_collapsibleweeks',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(
+                            0 => get_string('sectionprogresshidden', 'format_collapsibleweeks'),
+                            1 => get_string('sectionprogressshown', 'format_collapsibleweeks'),
+                        )
+                    )
+                ),
                 'automaticenddate' => array(
                     'label' => new lang_string('automaticenddate', 'format_collapsibleweeks'),
                     'help' => 'automaticenddate',
                     'help_component' => 'format_collapsibleweeks',
                     'element_type' => 'advcheckbox',
-                )
+                ),
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
