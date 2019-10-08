@@ -201,23 +201,18 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
             $complete = 0;
             $cancomplete = isloggedin() && !isguestuser();
             $modinfo = get_fast_modinfo($course);
-            $sectionmods = array();
             $completioninfo = new completion_info($course);
             if (!empty($modinfo->sections[$section->section])) {
                 foreach ($modinfo->sections[$section->section] as $cmid) {
+
                     $thismod = $modinfo->cms[$cmid];
+
                     if ($thismod->modname == 'label') {
                         // Labels are special (not interesting for students)!
                         continue;
                     }
+
                     if ($thismod->uservisible) {
-                        if (isset($sectionmods[$thismod->modname])) {
-                            $sectionmods[$thismod->modname]['name'] = $thismod->modplural;
-                            $sectionmods[$thismod->modname]['count']++;
-                        } else {
-                            $sectionmods[$thismod->modname]['name'] = $thismod->modfullname;
-                            $sectionmods[$thismod->modname]['count'] = 1;
-                        }
                         if ($cancomplete && $completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
                             $total++;
                             $completiondata = $completioninfo->get_data($thismod, true);
@@ -246,7 +241,6 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
 
         // Create a span that contains the section title to be used to create the keyboard section move menu.
         $o .= html_writer::tag('span', get_section_name($course, $section), array('class' => 'hidden sectionname'));
-
         $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
         $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
 
@@ -406,6 +400,77 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
     }
 
     /**
+     * Override to display progression count only when section progress bar is disabled.
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course the course record from DB
+     * @param array    $mods (argument not used)
+     * @return string HTML to output.
+     */
+    protected function section_activity_summary($section, $course, $mods) {
+        $modinfo = get_fast_modinfo($course);
+        if (empty($modinfo->sections[$section->section])) {
+            return '';
+        }
+
+        // Generate array with count of activities in this section.
+        $sectionmods = array();
+        $total = 0;
+        $complete = 0;
+        $cancomplete = isloggedin() && !isguestuser();
+        $completioninfo = new completion_info($course);
+        foreach ($modinfo->sections[$section->section] as $cmid) {
+            $thismod = $modinfo->cms[$cmid];
+
+            if ($thismod->uservisible) {
+                if (isset($sectionmods[$thismod->modname])) {
+                    $sectionmods[$thismod->modname]['name'] = $thismod->modplural;
+                    $sectionmods[$thismod->modname]['count']++;
+                } else {
+                    $sectionmods[$thismod->modname]['name'] = $thismod->modfullname;
+                    $sectionmods[$thismod->modname]['count'] = 1;
+                }
+                if ($cancomplete && $completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
+                    $total++;
+                    $completiondata = $completioninfo->get_data($thismod, true);
+                    if ($completiondata->completionstate == COMPLETION_COMPLETE ||
+                        $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                        $complete++;
+                    }
+                }
+            }
+        }
+
+        if (empty($sectionmods)) {
+            // No sections.
+            return '';
+        }
+
+        // Output section activities summary.
+        $o = '';
+        $o .= html_writer::start_tag('div', array('class' => 'section-summary-activities mdl-right'));
+        foreach ($sectionmods as $mod) {
+            $o .= html_writer::start_tag('span', array('class' => 'activity-count'));
+            $o .= $mod['name'].': '.$mod['count'];
+            $o .= html_writer::end_tag('span');
+        }
+        $o .= html_writer::end_tag('div');
+
+        // Output section completion data.
+        if (!$course->sectionprogress && $total > 0) {
+            $a = new stdClass;
+            $a->complete = $complete;
+            $a->total = $total;
+
+            $o .= html_writer::start_tag('div', array('class' => 'section-summary-activities mdl-right'));
+            $o .= html_writer::tag('span', get_string('progresstotal', 'completion', $a), array('class' => 'activity-count'));
+            $o .= html_writer::end_tag('div');
+        }
+
+        return $o;
+    }
+
+    /**
      * Generate the section progress bar
      *
      * @param int $total the number of activities in the section
@@ -427,9 +492,12 @@ class format_collapsibleweeks_renderer extends format_section_renderer_base {
             $percent = (int)(($complete / $total) * 100);
         }
 
-        $o .= '<div class="progress">';
-        $o .= '<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="' . $current .'" ';
-        $o .= ' aria-valuemin="0" aria-valuemax="' . $total .'" style="width: ' . $percent . '%;">';
+        $o .= '<div class="progress">' .
+            '<div class="progress-bar progress-bar-info" role="progressbar" ' .
+            'aria-valuenow="' . $current .'" aria-valuemin="0" aria-valuemax="' . $total .'" ' .
+            'style="width: ' . $percent . '%;" ' .
+            'data-tooltip="tooltip" data-placement="bottom" ' .
+            'title="' . get_string('progresstotal', 'completion', $completion) . '">';
         $o .= '<div class="progresstest">';
         $o .= '<span class="sr-only">' . $percenttext . '</span>';
         $o .= '</div>';
