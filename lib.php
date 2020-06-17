@@ -63,7 +63,7 @@ class format_collapsibleweeks extends format_base {
     }
 
     /**
-     * Returns the default section name for the weekly course format.
+     * Returns the default section name for the collapsibleweeks course format.
      *
      * If the section number is 0, it will use the string with key = section0name from the course format's lang file.
      * Otherwise, the default format of "[start date] - [end date]" will be returned.
