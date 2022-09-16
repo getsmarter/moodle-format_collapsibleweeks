@@ -38,7 +38,7 @@ class format_collapsibleweeks_observer_testcase extends advanced_testcase {
     /**
      * Test setup.
      */
-    public function setUp() {
+    public function setUp(): void {
         $this->resetAfterTest();
     }
 
